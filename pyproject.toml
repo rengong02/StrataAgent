@@ -52,3 +52,9 @@ Issues = "https://github.com/he-yufeng/CoreCoder/issues"
 [tool.ruff]
 line-length = 130
 target-version = "py310"
+# `evals/` holds results: JSONL, reports, and the scripts a probe run exported.
+# Linting them means every future probe artifact can turn the gate red, which is
+# noise rather than signal -- and the alternative, editing an artifact to satisfy
+# a linter, rewrites a record of what was actually run. Source is what this gate
+# is for.
+extend-exclude = ["evals"]

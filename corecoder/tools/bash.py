@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import threading
+import time
 from typing import ClassVar
 
 from ..shell import run_shell
@@ -59,6 +60,10 @@ class BashTool(Tool):
         "Execute a shell command. Returns stdout, stderr, and exit code. "
         "Use this for running tests, installing packages, git operations, etc."
     )
+    #: Enforceable: a timeout kills the whole process group, so a command cannot
+    #: outlive the wait it was given. It just has to be given the run's
+    #: remaining time rather than its own flat default.
+    deadline_mode = "enforced"
     parameters: ClassVar[dict] = {
         "type": "object",
         "properties": {
@@ -73,6 +78,22 @@ class BashTool(Tool):
         },
         "required": ["command"],
     }
+
+    def execute_with_deadline(self, deadline_at: float | None, command: str,
+                              timeout: int = 120) -> str:
+        """Run the command, with the wait capped by the run's remaining time.
+
+        The tool's own `timeout` is a default, not a licence to outlive the run
+        that asked for the command: a task bounded at five seconds should not
+        sit in a shell for two minutes. Already past the deadline means not
+        starting, same as the MCP path.
+        """
+        if deadline_at is not None:
+            left = deadline_at - time.monotonic()
+            if left <= 0:
+                return "Error: not started, the run's deadline had already passed"
+            timeout = min(float(timeout), left)
+        return self.execute(command, timeout=timeout)
 
     def execute(self, command: str, timeout: int = 120) -> str:
         # safety check

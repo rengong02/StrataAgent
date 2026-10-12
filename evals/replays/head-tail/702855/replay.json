@@ -1,0 +1,130 @@
+{
+  "what": "offline replay of a saved solver trajectory -- NOT a new LLM run",
+  "task_id": "TASK_250309_135125_702855",
+  "task_text": "Display net migration patterns on a world map.",
+  "plan_source": "evals/ablation/p2c_headtail_vs_raw/head_tail/run_1.jsonl",
+  "plan_from_arm": "head_tail",
+  "steps_planned": 4,
+  "steps_replayed": 4,
+  "steps_failed": 0,
+  "artifacts": [
+    {
+      "path": "artifacts/00_Generated_map_visualizing_2023_with_Net_.png",
+      "bytes": 178130,
+      "description": "Generated map visualizing 2023 with Net migration (2023) legend",
+      "png_size": [
+        1705,
+        928
+      ],
+      "opens": true
+    }
+  ],
+  "final_tables": {
+    "net_migration": {
+      "type": "DataFrame",
+      "rows": 266,
+      "cols": 69,
+      "null_cells": 330
+    },
+    "countries": {
+      "type": "GeoDataFrame",
+      "rows": 251,
+      "cols": 27,
+      "null_cells": 6
+    },
+    "migration_map": {
+      "type": "GeoDataFrame",
+      "rows": 251,
+      "cols": 96,
+      "null_cells": 2569
+    }
+  },
+  "steps": [
+    {
+      "index": 0,
+      "tool": "load_data",
+      "arguments": {
+        "dataset": "Net migration",
+        "output_dataframe_name": "net_migration"
+      },
+      "ok": true,
+      "seconds": 0.0059,
+      "created": {
+        "net_migration": {
+          "type": "DataFrame",
+          "rows": 266,
+          "cols": 69,
+          "null_cells": 330
+        }
+      },
+      "images_added": 0,
+      "result_head": "Loaded data and created DataFrame named net_migration.\nDescription of DataFrame stored in net_migration variable:\n<class 'pandas.DataFrame'>\nRangeIndex: 266 entries, 0 to 265\nData columns (total 69 columns):\n #   Column          Non-Null Count  Dtype  \n---  ------          --------------  -----  \n 0   Country Name    266 non-null    str    \n 1   Country Code    266 non-null    str    \n 2   Indicat",
+      "result_chars": 4463,
+      "result_truncated": true
+    },
+    {
+      "index": 1,
+      "tool": "load_geodata",
+      "arguments": {
+        "geodataset": "Countries",
+        "output_geodataframe_name": "countries"
+      },
+      "ok": true,
+      "seconds": 0.0347,
+      "created": {
+        "countries": {
+          "type": "GeoDataFrame",
+          "rows": 251,
+          "cols": 27,
+          "null_cells": 6
+        }
+      },
+      "images_added": 0,
+      "result_head": "Loaded geodata and created GeoDataFrame named countries.\nDescription of GeoDataFrame:\n<class 'geopandas.geodataframe.GeoDataFrame'>\nRangeIndex: 251 entries, 0 to 250\nData columns (total 27 columns):\n #   Column      Non-Null Count  Dtype   \n---  ------      --------------  -----   \n 0   OBJECTID    251 non-null    int64   \n 1   featurecla  251 non-null    str     \n 2   LEVEL       251 non-null    ",
+      "result_chars": 2025,
+      "result_truncated": true
+    },
+    {
+      "index": 2,
+      "tool": "merge_dataframes",
+      "arguments": {
+        "dataframe_name": "net_migration",
+        "geodataframe_name": "countries",
+        "statkey": "Country Code",
+        "geokey": "ISO_A3",
+        "output_dataframe_name": "migration_map"
+      },
+      "ok": true,
+      "seconds": 0.0037,
+      "created": {
+        "migration_map": {
+          "type": "GeoDataFrame",
+          "rows": 251,
+          "cols": 96,
+          "null_cells": 2569
+        }
+      },
+      "images_added": 0,
+      "result_head": "Created merged DataFrame named migration_map.\nDescription of merged DataFrame:\n<class 'geopandas.geodataframe.GeoDataFrame'>\nRangeIndex: 251 entries, 0 to 250\nData columns (total 96 columns):\n #   Column          Non-Null Count  Dtype   \n---  ------          --------------  -----   \n 0   OBJECTID        251 non-null    int64   \n 1   featurecla      251 non-null    str     \n 2   LEVEL           251",
+      "result_chars": 6248,
+      "result_truncated": true
+    },
+    {
+      "index": 3,
+      "tool": "make_choropleth_map",
+      "arguments": {
+        "dataframe_name": "migration_map",
+        "mappingkey": "2023",
+        "legendtext": "Net migration (2023)",
+        "colormap": "Population divergent"
+      },
+      "ok": true,
+      "seconds": 0.1936,
+      "created": {},
+      "images_added": 1,
+      "result_head": "Generated map visualizing 2023 with Net migration (2023) legend",
+      "result_chars": 63,
+      "result_truncated": false
+    }
+  ]
+}

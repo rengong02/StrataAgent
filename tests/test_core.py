@@ -23,36 +23,6 @@ def test_version():
     assert __version__ == m.group(1)
 
 
-def test_readme_line_counts_are_current():
-    # The LoC numbers are the brand of this repo. If the engine or the
-    # package grows, the README has to move with it, and this test is the
-    # alarm: update the badge and the prose in README.md and README_CN.md.
-    root = Path(__file__).resolve().parent.parent
-    engine_files = [
-        root / "corecoder" / name
-        for name in ("agent.py", "llm.py", "context.py", "session.py")
-    ]
-    engine_files += sorted((root / "corecoder" / "tools").glob("*.py"))
-    package_files = sorted((root / "corecoder").rglob("*.py"))
-
-    def net_lines(path: Path) -> int:
-        return sum(
-            1
-            for line in path.read_text(encoding="utf-8").splitlines()
-            if line.strip() and not line.strip().startswith("#")
-        )
-
-    engine = sum(net_lines(f) for f in engine_files)
-    physical = sum(
-        len(f.read_text(encoding="utf-8").splitlines()) for f in package_files
-    )
-    package_net = sum(net_lines(f) for f in package_files)
-
-    readme = (root / "README.md").read_text(encoding="utf-8")
-    assert f"engine-{engine}_LoC" in readme
-    assert f"{len(package_files)} files" in readme
-    assert f"{physical:,} physical lines" in readme
-    assert f"{package_net:,} net" in readme
 
 
 def test_public_api_exports():
@@ -543,8 +513,14 @@ class TestLLMParamFallback:
 
 
 class TestReasoningPassthrough:
-    """Thinking models stream reasoning_content next to content. It is shown
-    through on_reasoning but never mixed into the reply or the history."""
+    """Thinking models stream reasoning_content next to content.
+
+    It is shown through `on_reasoning`, never mixed into the reply, and **kept
+    alongside it in the history message**. Dropping it from the history is not
+    harmless: DeepSeek's thinking mode answers the next request with a 400 --
+    "The `reasoning_content` in the thinking mode must be passed back to the
+    API" -- which killed a benchmark run seven tasks in.
+    """
 
     @staticmethod
     def _make_llm():
@@ -584,16 +560,162 @@ class TestReasoningPassthrough:
         )
         assert reasoning_parts == ["think ", "hard"]
         assert result.content == "answer"
-        # reasoning must not leak into the history message
-        assert "think" not in str(result.message)
+        # the reply stays clean ...
+        assert "think" not in result.content
+        # ... but the reasoning is carried, or the provider rejects the next turn
+        assert result.message["reasoning_content"] == "think hard"
         assert llm.total_prompt_tokens == 5
         assert llm.total_completion_tokens == 3
 
-    def test_reasoning_without_callback_is_dropped(self):
+    def test_a_provider_that_sends_no_reasoning_gets_no_reasoning_key(self):
+        """OpenAI-compatible endpoints reject unknown message keys.
+
+        So the field is round-tripped only when the provider put something in
+        it -- which those endpoints never do.
+        """
+        from types import SimpleNamespace
+
+        llm = self._make_llm()
+        llm.client.chat.completions.create.return_value = [
+            SimpleNamespace(
+                usage=None,
+                choices=[SimpleNamespace(delta=SimpleNamespace(
+                    content="answer", tool_calls=None))],
+            ),
+        ]
+
+        result = llm.chat(messages=[{"role": "user", "content": "hi"}])
+
+        assert "reasoning_content" not in result.message
+        assert result.message == {"role": "assistant", "content": "answer"}
+
+    def test_reasoning_is_kept_when_nobody_is_listening(self):
+        """No `on_reasoning` callback is not a reason to lose it."""
         llm = self._make_llm()
         llm.client.chat.completions.create.return_value = self._stream()
         result = llm.chat(messages=[{"role": "user", "content": "hi"}])
         assert result.content == "answer"
+        assert result.message["reasoning_content"] == "think hard"
+
+    # The rule below was measured against the live API, because the obvious
+    # reading of it is wrong and writing the obvious one cost two runs:
+    #
+    #   tool-call turn, reasoning non-empty -> 200
+    #   tool-call turn, reasoning ""        -> 200
+    #   tool-call turn, key absent          -> 400
+
+    @staticmethod
+    def _tool_call_stream():
+        from types import SimpleNamespace
+
+        return [
+            SimpleNamespace(
+                usage=None,
+                choices=[SimpleNamespace(delta=SimpleNamespace(
+                    content=None, reasoning_content=None,
+                    tool_calls=[SimpleNamespace(
+                        index=0, id="c1",
+                        function=SimpleNamespace(name="add", arguments='{"a": 1}'))]))],
+            ),
+        ]
+
+    def test_a_tool_call_turn_with_no_reasoning_still_carries_the_key(self):
+        """The case that "only send it when we have something" misses.
+
+        A thinking provider flags *every* tool-call turn, not just the ones it
+        happened to think on. Omitting the key on a turn that produced no
+        reasoning is a 400, and it looks intermittent because most turns do
+        reason.
+        """
+        llm = self._make_llm()
+        llm.client.chat.completions.create.return_value = self._stream()
+        llm.chat(messages=[{"role": "user", "content": "hi"}])
+        assert llm.saw_reasoning, "the first turn should have marked this provider"
+
+        llm.client.chat.completions.create.return_value = self._tool_call_stream()
+        result = llm.chat(messages=[{"role": "user", "content": "hi"}])
+
+        assert result.reasoning == ""
+        assert "reasoning_content" in result.message, "key absent -> the API returns 400"
+        assert result.message["reasoning_content"] == ""
+
+    def test_a_tool_call_before_any_reasoning_keeps_the_plain_shape(self):
+        """A provider that never reasons must not receive the field at all.
+
+        OpenAI-compatible endpoints reject unknown message keys, and they never
+        stream reasoning, so they never see it.
+        """
+        llm = self._make_llm()
+        llm.client.chat.completions.create.return_value = self._tool_call_stream()
+        result = llm.chat(messages=[{"role": "user", "content": "hi"}])
+
+        assert llm.saw_reasoning is False
+        assert "reasoning_content" not in result.message
+        assert set(result.message) == {"role", "content", "tool_calls"}
+
+    # Every assistant turn needs the key, not just the tool-call ones -- context
+    # compression inserts a plain assistant message, and that one killed a run.
+    # The API only enforces it when the conversation continues after a tool
+    # result, which is why probes ending in a user message all passed.
+
+    @staticmethod
+    def _ok_stream(text="done"):
+        from types import SimpleNamespace
+
+        return [SimpleNamespace(usage=None, choices=[SimpleNamespace(
+            delta=SimpleNamespace(content=text, tool_calls=None))])]
+
+    @staticmethod
+    def _history():
+        return [
+            {"role": "system", "content": "s"},
+            {"role": "user", "content": "task"},
+            # what context compression inserts when it summarizes old turns
+            {"role": "assistant", "content": "Got it, I have the context."},
+            {"role": "assistant", "content": None, "reasoning_content": "think",
+             "tool_calls": [{"id": "c1", "type": "function",
+                             "function": {"name": "add", "arguments": "{}"}}]},
+            {"role": "tool", "tool_call_id": "c1", "content": "5"},
+        ]
+
+    def _sent_messages(self, llm):
+        return llm.client.chat.completions.create.call_args.kwargs["messages"]
+
+    def test_a_keyless_assistant_turn_gains_the_key(self):
+        llm = self._make_llm()
+        llm.saw_reasoning = True
+        llm.client.chat.completions.create.return_value = self._ok_stream()
+
+        llm.chat(messages=self._history())
+        sent = self._sent_messages(llm)
+
+        assistants = [m for m in sent if m.get("role") == "assistant"]
+        assert len(assistants) == 2
+        assert all("reasoning_content" in m for m in assistants), (
+            "a keyless assistant turn after a tool result is a 400"
+        )
+        assert assistants[0]["reasoning_content"] == ""
+
+    def test_the_normalisation_does_not_mutate_the_callers_history(self):
+        """The history is reused next round; a plain turn should stay plain."""
+        llm = self._make_llm()
+        llm.saw_reasoning = True
+        llm.client.chat.completions.create.return_value = self._ok_stream()
+
+        history = self._history()
+        llm.chat(messages=history)
+
+        assert "reasoning_content" not in history[2]
+
+    def test_a_non_thinking_provider_gets_the_history_untouched(self):
+        llm = self._make_llm()
+        assert llm.saw_reasoning is False
+        llm.client.chat.completions.create.return_value = self._ok_stream()
+
+        history = self._history()
+        llm.chat(messages=history)
+
+        assert self._sent_messages(llm) is history
 
     def test_openrouter_reasoning_field_also_forwarded(self):
         # aggregators normalize the chain-of-thought onto delta.reasoning

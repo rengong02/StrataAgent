@@ -15,12 +15,14 @@ import atexit
 import json
 import logging
 import os
+import signal
 import subprocess
 import threading
 import time
 from pathlib import Path
 
 from . import __version__
+from .process import process_group_of, reap, spawn_in_own_group, terminate_process_group
 from .tools.base import Tool
 
 log = logging.getLogger(__name__)
@@ -46,7 +48,8 @@ class MCPClient:
     def __init__(self, name: str, command: str, args: list = (), env: dict | None = None):
         self.name = name
         self.call_timeout = CALL_TIMEOUT
-        self._proc = subprocess.Popen(
+        self._closed = False
+        self._proc = spawn_in_own_group(
             [command, *args],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
@@ -55,6 +58,9 @@ class MCPClient:
             errors="replace",
             bufsize=1,  # line buffered: the transport is newline-delimited JSON
         )
+        # Captured now: getpgid stops answering once the leader is reaped, and
+        # close() deliberately waits for the leader.
+        self._pgid = process_group_of(self._proc)
         self._next_id = 0
         self._dead: MCPError | None = None
         self._responses: dict[int, dict] = {}
@@ -74,10 +80,28 @@ class MCPClient:
             self.close()  # a half-started server must not leak
             raise
 
-    def call_tool(self, tool_name: str, arguments: dict) -> str:
-        """Run one remote tool and return its text content."""
+    def call_tool(self, tool_name: str, arguments: dict,
+                  deadline_at: float | None = None) -> str:
+        """Run one remote tool and return its text content.
+
+        `deadline_at` is the run's absolute deadline. The call gets the smaller
+        of its own allowance and what is left of the run -- without that, a task
+        bounded at five seconds still sat here for the fixed sixty waiting to
+        find out, which makes the task's own deadline a decoration.
+        """
+        timeout = self.call_timeout
+        if deadline_at is not None:
+            left = deadline_at - time.monotonic()
+            if left <= 0:
+                # Identifiable as a deadline stop rather than a slow server: the
+                # two call for different responses, and a report needs to say
+                # which happened.
+                raise MCPError(
+                    f"{tool_name!r} was not started: the run's deadline had already passed"
+                )
+            timeout = min(timeout, left)
         result = self._request(
-            "tools/call", {"name": tool_name, "arguments": arguments}, self.call_timeout
+            "tools/call", {"name": tool_name, "arguments": arguments}, timeout
         )
         text = "\n".join(
             part.get("text", "")
@@ -89,18 +113,33 @@ class MCPClient:
         return text or json.dumps(result)  # non-text content: hand the model the raw result
 
     def close(self):
-        """Shut the server down. Safe to call twice."""
-        if self._proc.poll() is not None:
+        """Shut the server down. Safe to call twice.
+
+        The server leads its own process group, so the signal reaches anything
+        it spawned -- an MCP server that shells out to GDAL, say. Closing stdin
+        first gives it the EOF it is watching for; SIGTERM gives it a chance to
+        flush; a SIGKILL sweep catches children that ignored the SIGTERM even
+        though their parent honoured it.
+
+        The pgid is captured at spawn because `getpgid` stops answering once the
+        leader is reaped -- and the leader is exactly what we wait on.
+        """
+        if self._closed:
             return
+        self._closed = True
         try:
             self._proc.stdin.close()
         except OSError:
             pass
-        self._proc.terminate()
+        terminate_process_group(self._proc, sig=signal.SIGTERM, pgid=self._pgid)
         try:
             self._proc.wait(timeout=5)
         except subprocess.TimeoutExpired:
-            self._proc.kill()
+            pass
+        # Sweep regardless: a child that ignores SIGTERM outlives a parent that
+        # does not. An empty group makes this a no-op (ProcessLookupError).
+        terminate_process_group(self._proc, sig=signal.SIGKILL, pgid=self._pgid)
+        reap(self._proc)
 
     def _notify(self, method: str):
         try:
@@ -165,6 +204,10 @@ class MCPTool(Tool):
     Permission.READ_ONLY and the consent gate asks first, like any mutating tool.
     """
 
+    #: Enforceable: the call waits on another process with a bounded timeout, so
+    #: it cannot outlive the wait it was given.
+    deadline_mode = "enforced"
+
     def __init__(self, client: MCPClient, spec: dict):
         self._client = client
         self._remote_name = spec["name"]
@@ -174,6 +217,12 @@ class MCPTool(Tool):
 
     def execute(self, **kwargs) -> str:
         return self._client.call_tool(self._remote_name, kwargs)
+
+    def execute_with_deadline(self, deadline_at: float | None, **kwargs) -> str:
+        """A remote call is exactly the kind of tool that needs a bound: it waits
+        on another process, and the run's remaining time is the only thing that
+        should decide how long."""
+        return self._client.call_tool(self._remote_name, kwargs, deadline_at=deadline_at)
 
 
 _live_clients: list[MCPClient] = []
@@ -202,7 +251,34 @@ def load_mcp_tools(path: Path = CONFIG_FILE) -> list[Tool]:
     return tools
 
 
+def shutdown_mcp_servers() -> int:
+    """Close every server `load_mcp_tools` started.
+
+    Returns the number of servers *processed*, which is not the number that
+    shut down cleanly: a failing `close()` is logged and the count still
+    includes it. Reading this as "servers closed" would overstate the result.
+
+    `atexit` covers a clean interpreter exit, but a benchmark that runs many
+    tasks wants to release the servers *between* phases -- and anything running
+    the loop as a library (or under a test runner) wants it deterministically
+    rather than whenever the process happens to end. Safe to call twice.
+
+    One server failing to close must not strand the rest, so each is isolated
+    and the failure is logged rather than raised. Not concurrency-safe: do not
+    call it while another thread is inside `load_mcp_tools`.
+    """
+    closed = 0
+    while _live_clients:
+        client = _live_clients.pop()
+        try:
+            client.close()
+        except Exception:
+            log.warning("MCP server %r did not shut down cleanly", client.name, exc_info=True)
+        closed += 1
+    return closed
+
+
 @atexit.register
 def _shutdown():
-    for client in _live_clients:
-        client.close()
+    """Backstop for processes that never call `shutdown_mcp_servers`."""
+    shutdown_mcp_servers()

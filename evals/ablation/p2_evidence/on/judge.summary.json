@@ -1,0 +1,68 @@
+{
+  "judge": "deepseek:deepseek-flash",
+  "solver": "evals/ablation/p2_evidence/on/run_1.jsonl",
+  "tasks": 9,
+  "repeats": 3,
+  "per_task_scores": {
+    "TASK_250309_135125_932053": [
+      1,
+      0,
+      1
+    ],
+    "TASK_250309_135125_918547": [
+      0,
+      0,
+      0
+    ],
+    "TASK_250309_135125_476053": [
+      2,
+      2,
+      2
+    ],
+    "TASK_250309_135125_702855": [
+      2,
+      2,
+      2
+    ],
+    "TASK_250309_135125_476358": [
+      2,
+      2,
+      2
+    ],
+    "TASK_250309_135125_530802": [
+      1,
+      1,
+      1
+    ],
+    "TASK_250309_135125_526765": [
+      2,
+      2,
+      2
+    ],
+    "TASK_250309_135125_901809": [
+      1,
+      0,
+      0
+    ],
+    "TASK_250309_135125_596430": [
+      2,
+      2,
+      2
+    ]
+  },
+  "majority_total": 12,
+  "max_total": 18,
+  "exact": 5,
+  "per_run_totals": [
+    13,
+    11,
+    12
+  ],
+  "spread": 2,
+  "unstable_tasks": [
+    "TASK_250309_135125_932053",
+    "TASK_250309_135125_901809"
+  ],
+  "judge_failures": [],
+  "metric": "GeoBenchX tool-plan match score, not end-to-end GIS accuracy"
+}

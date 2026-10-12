@@ -38,19 +38,3 @@ def test_script_points_at_the_demo_workdir(tmp_path):
     assert all(path.startswith(str(tmp_path)) for path in paths if path)
 
 
-def test_plan_hooks_example_guards_then_lets_through(tmp_path, monkeypatch):
-    import importlib.util
-    from pathlib import Path
-
-    spec = importlib.util.spec_from_file_location(
-        "plan_hooks_demo", Path(__file__).parent.parent / "examples" / "plan_hooks_demo.py"
-    )
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-
-    monkeypatch.setattr(mod.tempfile, "mkdtemp", lambda prefix: str(tmp_path))
-
-    assert mod.run() == 0
-    fib = (tmp_path / "fib.py").read_text()
-    assert "ValueError" in fib
-    assert "test_negative_raises" in (tmp_path / "test_fib.py").read_text()

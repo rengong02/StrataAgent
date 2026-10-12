@@ -10,6 +10,7 @@ The sub-agent runs to completion and returns a text summary.
 
 from typing import ClassVar
 
+from ..limits import LimitExceeded
 from .base import Tool
 
 
@@ -65,6 +66,13 @@ class AgentTool(Tool):
             if len(result) > 5000:
                 result = result[:4500] + "\n... (sub-agent output truncated)"
             return f"[Sub-agent completed]\n{result}"
+        except LimitExceeded as e:
+            # a budget stop is not a crash: say which limit tripped so the parent
+            # model can narrow the task instead of retrying it unchanged
+            return (
+                f"Sub-agent stopped early: {e}. "
+                "Its work is incomplete; try a smaller task."
+            )
         except Exception as e:  # noqa: BLE001
             return f"Sub-agent error: {e}"
         finally:

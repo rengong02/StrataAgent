@@ -7,11 +7,10 @@ and makes edits safe and reviewable.
 """
 
 import difflib
-from pathlib import Path
 from typing import ClassVar
 
 from ..checkpoints import record as _record_checkpoint
-from .base import Tool
+from .base import Tool, resolve_in_workspace
 
 # track files changed this session for /diff
 _changed_files: set[str] = set()
@@ -48,7 +47,7 @@ class EditFileTool(Tool):
 
         try:
             with FILE_MUTATION_LOCK:
-                p = Path(file_path).expanduser().resolve()
+                p = resolve_in_workspace(file_path)
                 if not p.exists():
                     return f"Error: {file_path} not found"
 

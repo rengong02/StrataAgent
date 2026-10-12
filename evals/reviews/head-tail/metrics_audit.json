@@ -1,0 +1,579 @@
+{
+  "kind": "independent offline reanalysis; raw artifacts unchanged",
+  "statistics": {
+    "tokens": {
+      "leftTotal": 1484308,
+      "rightTotal": 995882,
+      "differences": [
+        9892,
+        -14101,
+        -27173,
+        3455,
+        79835,
+        1467,
+        28703,
+        336099,
+        70249
+      ],
+      "p": 0.1171875,
+      "extreme": 60,
+      "permutations": 512
+    },
+    "steps": {
+      "leftTotal": 130,
+      "rightTotal": 105,
+      "differences": [
+        0,
+        -2,
+        1,
+        0,
+        13,
+        0,
+        2,
+        11,
+        0
+      ],
+      "p": 0.25,
+      "extreme": 128,
+      "permutations": 512
+    },
+    "errors": {
+      "leftTotal": 6,
+      "rightTotal": 0,
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        0
+      ],
+      "p": 1,
+      "extreme": 512,
+      "permutations": 512
+    }
+  },
+  "p2cSummaryArms": [
+    "head_tail",
+    "off"
+  ],
+  "savingsConcentration": 0.6881267581987854,
+  "withoutQuakeReduction": 0.1425423246656511,
+  "arms": {
+    "off": [
+      {
+        "task_ID": "TASK_250309_135125_702855",
+        "step_count": 4,
+        "tokens": 40568,
+        "stop_reason": "completed",
+        "wall_seconds": 16.9,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_476358",
+        "step_count": 4,
+        "tokens": 40520,
+        "stop_reason": "completed",
+        "wall_seconds": 15.1,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_530802",
+        "step_count": 4,
+        "tokens": 43069,
+        "stop_reason": "completed",
+        "wall_seconds": 19.6,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_526765",
+        "step_count": 20,
+        "tokens": 212275,
+        "stop_reason": "completed",
+        "wall_seconds": 64.2,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_901809",
+        "step_count": 21,
+        "tokens": 180576,
+        "stop_reason": "completed",
+        "wall_seconds": 54,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_596430",
+        "step_count": 31,
+        "tokens": 238290,
+        "stop_reason": "completed",
+        "wall_seconds": 70.3,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_476053",
+        "step_count": 8,
+        "tokens": 61061,
+        "stop_reason": "completed",
+        "wall_seconds": 35.9,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_918547",
+        "step_count": 19,
+        "tokens": 415664,
+        "stop_reason": "completed",
+        "wall_seconds": 62.7,
+        "tool_errors": 6,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      },
+      {
+        "task_ID": "TASK_250309_135125_932053",
+        "step_count": 19,
+        "tokens": 252285,
+        "stop_reason": "completed",
+        "wall_seconds": 64,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": null,
+          "evidence_schema_preview": null
+        },
+        "evidence_stats": {}
+      }
+    ],
+    "head_tail": [
+      {
+        "task_ID": "TASK_250309_135125_702855",
+        "step_count": 4,
+        "tokens": 39101,
+        "stop_reason": "completed",
+        "wall_seconds": 14,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 4,
+          "replaced": 2,
+          "kept": 2,
+          "bytes_before": 12799,
+          "bytes_after": 10631,
+          "bytes_saved": 2168,
+          "artifacts": 7,
+          "stored": 5,
+          "written_bytes": 270085,
+          "capped": true,
+          "too_large": 2
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_476358",
+        "step_count": 6,
+        "tokens": 54621,
+        "stop_reason": "completed",
+        "wall_seconds": 15.4,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 6,
+          "replaced": 2,
+          "kept": 4,
+          "bytes_before": 16247,
+          "bytes_after": 14275,
+          "bytes_saved": 1972,
+          "artifacts": 9,
+          "stored": 7,
+          "written_bytes": 263170,
+          "capped": true,
+          "too_large": 2
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_530802",
+        "step_count": 4,
+        "tokens": 39614,
+        "stop_reason": "completed",
+        "wall_seconds": 13.2,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 4,
+          "replaced": 1,
+          "kept": 3,
+          "bytes_before": 12794,
+          "bytes_after": 11214,
+          "bytes_saved": 1580,
+          "artifacts": 7,
+          "stored": 5,
+          "written_bytes": 319615,
+          "capped": true,
+          "too_large": 2
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_526765",
+        "step_count": 19,
+        "tokens": 239448,
+        "stop_reason": "completed",
+        "wall_seconds": 78.9,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 19,
+          "replaced": 5,
+          "kept": 14,
+          "bytes_before": 30282,
+          "bytes_after": 25646,
+          "bytes_saved": 4636,
+          "artifacts": 36,
+          "stored": 35,
+          "written_bytes": 1883950,
+          "capped": true,
+          "too_large": 1
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_901809",
+        "step_count": 19,
+        "tokens": 151873,
+        "stop_reason": "completed",
+        "wall_seconds": 49.6,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 19,
+          "replaced": 1,
+          "kept": 18,
+          "bytes_before": 19646,
+          "bytes_after": 17884,
+          "bytes_saved": 1762,
+          "artifacts": 31,
+          "stored": 27,
+          "written_bytes": 1931184,
+          "capped": true,
+          "too_large": 4
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_596430",
+        "step_count": 18,
+        "tokens": 158455,
+        "stop_reason": "completed",
+        "wall_seconds": 69.9,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 18,
+          "replaced": 6,
+          "kept": 12,
+          "bytes_before": 34612,
+          "bytes_after": 26314,
+          "bytes_saved": 8298,
+          "artifacts": 28,
+          "stored": 27,
+          "written_bytes": 3760358,
+          "capped": true,
+          "too_large": 1
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_476053",
+        "step_count": 8,
+        "tokens": 51169,
+        "stop_reason": "completed",
+        "wall_seconds": 22.6,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 8,
+          "replaced": 0,
+          "kept": 8,
+          "bytes_before": 6188,
+          "bytes_after": 6188,
+          "bytes_saved": 0,
+          "artifacts": 13,
+          "stored": 12,
+          "written_bytes": 1825857,
+          "capped": true,
+          "too_large": 1
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_918547",
+        "step_count": 8,
+        "tokens": 79565,
+        "stop_reason": "completed",
+        "wall_seconds": 27.2,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 8,
+          "replaced": 2,
+          "kept": 6,
+          "bytes_before": 19996,
+          "bytes_after": 16154,
+          "bytes_saved": 3842,
+          "artifacts": 14,
+          "stored": 10,
+          "written_bytes": 378100,
+          "capped": true,
+          "too_large": 4
+        }
+      },
+      {
+        "task_ID": "TASK_250309_135125_932053",
+        "step_count": 19,
+        "tokens": 182036,
+        "stop_reason": "completed",
+        "wall_seconds": 64.5,
+        "tool_errors": 0,
+        "provenance": {
+          "geobenchx_root": "/Users/rengong/Documents/agent/work/GeoBenchX",
+          "geobenchx_head": "0edf6109ea5dca3e70fdfe081d39c9ccd0f832fb",
+          "geobenchx_dirty": "a3c73c98f33a8ada",
+          "patches": {
+            "geobenchx-0001-drop-colorbar-fmt.patch": true,
+            "geobenchx-0002-spatial-select-distinct-features.patch": true
+          },
+          "matplotlib_backend": "Agg",
+          "schema_hints": false,
+          "evidence_dir": "/Users/rengong/Documents/agent/work/CoreCoder/evals/ablation/p2c_headtail_vs_raw/head_tail/_evidence",
+          "evidence_schema_preview": "head_tail"
+        },
+        "evidence_stats": {
+          "calls": 19,
+          "replaced": 3,
+          "kept": 16,
+          "bytes_before": 22147,
+          "bytes_after": 18255,
+          "bytes_saved": 3892,
+          "artifacts": 33,
+          "stored": 31,
+          "written_bytes": 2506386,
+          "capped": true,
+          "too_large": 2
+        }
+      }
+    ]
+  },
+  "rawHashes": {
+    "off/run_1.jsonl": "5e018a0685e42721f6fda7891a98e28c86c7ec0b51101871f305d6a2db3cd954",
+    "head_tail/run_1.jsonl": "483b4eaf522bd4408510f176b6c47c6483c9339c74a61313a864900fe524c10e"
+  }
+}

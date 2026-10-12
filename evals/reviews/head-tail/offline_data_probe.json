@@ -1,0 +1,103 @@
+{
+  "kind": "offline data validation, not a new agent run",
+  "source_snapshot": {
+    "files": 43,
+    "sha256": "92cc7ac5fd4c70c445b61ace411c3e5c73858ee0dbf3b3107fdae45bdc17c783",
+    "without_timing_script_sha256": "b17b621ebe9a953faccb9e30de8330449b7b4ab90f6060690376251e46adf561"
+  },
+  "forest_station_probe": {
+    "station_source_rows": 3034,
+    "forest_country_duplicate_rows": 0,
+    "exact_match_count_loss_gt_5_pp": 693,
+    "three_manual_alias_counts": {
+      "Congo (Kinshasa)": {
+        "stations": 70,
+        "qualifies": true
+      },
+      "Côte d'Ivoire": {
+        "stations": 19,
+        "qualifies": true
+      },
+      "São Tomé and Príncipe": {
+        "stations": 11,
+        "qualifies": true
+      }
+    },
+    "exact_plus_three_count": 793,
+    "all_known_alias_count_loss_gt_5_pp": 793,
+    "all_known_alias_count_loss_ge_20_percent": 525,
+    "unmatched_country_rows": {
+      "Egypt": 152,
+      "Congo (Kinshasa)": 70,
+      "Congo (Brazzaville)": 56,
+      "Côte d'Ivoire": 19,
+      "São Tomé and Príncipe": 11,
+      "Western Sahara": 10
+    },
+    "qualifying_station_country_names": [
+      "Angola",
+      "Benin",
+      "Botswana",
+      "Burkina Faso",
+      "Comoros",
+      "Congo (Kinshasa)",
+      "Côte d'Ivoire",
+      "Equatorial Guinea",
+      "Gambia, The",
+      "Ghana",
+      "Guinea-Bissau",
+      "Liberia",
+      "Malawi",
+      "Mozambique",
+      "Nigeria",
+      "Senegal",
+      "Sierra Leone",
+      "São Tomé and Príncipe",
+      "Tanzania",
+      "Uganda"
+    ]
+  },
+  "amazon_values": {
+    "Bolivia": {
+      "coverage_pct": 46.7283054555525,
+      "area_sqkm": 506207.733
+    },
+    "Brazil": {
+      "coverage_pct": 59.2705274977447,
+      "area_sqkm": 4953913.667
+    },
+    "Colombia": {
+      "coverage_pct": 53.1253958539883,
+      "area_sqkm": 589426.267
+    },
+    "Ecuador": {
+      "coverage_pct": 50.0626509904977,
+      "area_sqkm": 124335.6
+    },
+    "Guyana": {
+      "coverage_pct": 93.5033441706884,
+      "area_sqkm": 184061.333
+    },
+    "Peru": {
+      "coverage_pct": 56.373072890625,
+      "area_sqkm": 721575.333
+    },
+    "Suriname": {
+      "coverage_pct": 97.3336108974359,
+      "area_sqkm": 151840.433
+    },
+    "Venezuela, RB": {
+      "coverage_pct": 52.3477807380534,
+      "area_sqkm": 461733.6
+    }
+  },
+  "quake_probe": {
+    "source_records": 9176,
+    "start": "2025-01-16T02:25:36.580000+00:00",
+    "end": "2025-02-15T02:03:36.460000+00:00",
+    "days": 29.98472083333333,
+    "country_rows": 45,
+    "gdp_nonmissing": 45,
+    "gdp_mean_2020": 11865.506089717981
+  }
+}

@@ -1,0 +1,58 @@
+diff --git a/geobenchx/tools.py b/geobenchx/tools.py
+--- a/geobenchx/tools.py
++++ b/geobenchx/tools.py
+@@ -1284,22 +1284,35 @@
+            # Reproject features to match reference CRS
+            features_gdf = features_gdf.to_crs(reference_gdf.crs)            
+ 
+-       # Initialize an empty GeoDataFrame to store combined results
+-       selected_features = None
++       # `sjoin` emits one row per (feature, reference) pair, so a country that
++       # contains two earthquakes came back twice with every left column
++       # repeated. Nothing downstream could tell: the reported count counted
++       # pairs, and an average over the frame was weighted by however many
++       # references happened to land in each feature. On the shipped input that
++       # turned 45 countries into 7,715 rows. What is wanted is the set of
++       # *source features* satisfying any predicate, so the match is collected
++       # positionally and the original rows are then taken in input order.
++       #
++       # Positional, not by index or by geometry: a filtered frame keeps its
++       # labels, so two genuinely different features can share an index, and two
++       # can share geometry. De-duplicating on either would silently delete a
++       # real feature instead of a duplicate row.
++       keyed = features_gdf.copy()
++       position_column = "__strata_source_position__"
++       while position_column in keyed.columns or position_column in reference_gdf.columns:
++           position_column += "_"
++       keyed[position_column] = range(len(keyed))
+ 
+-       # Process each predicate and combine results
++       matched_positions = set()
+        for predicate in spatial_predicates:
+-           # Perform spatial join for current predicate
+-           current_selection = gpd.sjoin(features_gdf, reference_gdf, predicate=predicate)
+-           
+-           if selected_features is None:
+-               selected_features = current_selection
+-           else:
+-               # Combine with previous results (OR logic)
+-               selected_features = pd.concat([selected_features, current_selection]).drop_duplicates()
++           joined = gpd.sjoin(keyed, reference_gdf, predicate=predicate, how="inner")
++           if position_column in joined.columns:
++               matched_positions.update(int(p) for p in joined[position_column])
+ 
+-       if selected_features is None or len(selected_features) == 0:
++       if not matched_positions:
+            return f"No features found matching any of the spatial predicates: {spatial_predicates}"
++
++       selected_features = features_gdf.iloc[sorted(matched_positions)].copy()
+ 
+        # Store results in state      
+        state["data_store"][output_geodataframe_name] = selected_features
+@@ -2597,4 +2610,4 @@ reject_task_tool = StructuredTool.from_function(
+     name='reject_task',
+     description='This tool should be called when the task cannot be solved to return \
+         a standardized message indicating that the current task cannot be solved with the available tools and datasets.'
+-)
+\ No newline at end of file
++)

@@ -1,0 +1,49 @@
+{
+  "what": "spatial selection stage timings, real GeoBenchX inputs, no API",
+  "caveat": "local stage timings only; not an agent benchmark, not a stable performance figure, and not a full attribution of the observed 1000s task wall time",
+  "stage_limit_seconds": 180.0,
+  "provenance": {
+    "python": "3.11.16",
+    "geopandas": "1.2.0",
+    "matplotlib": "3.11.2",
+    "matplotlib_backend": "Agg",
+    "geobenchx_tools_sha256": "837544794594a2b63c1b9c4cb6e59a532e3cd14849c24826428df408fc89860b",
+    "mplconfigdir": "/tmp/corecoder-mpl"
+  },
+  "stages": [
+    {
+      "stage": "load_countries",
+      "seconds": 0.0339,
+      "note": "Loaded geodata and created GeoDataFrame named countries.\nDescription of GeoDataFrame:\n<class 'geopandas.geodataframe.GeoDataFrame'>\nRangeIndex: 251 entries, 0 to 250\nData columns (total 27 columns):\n #   Column      Non-Null Count  Dtype   \n---  ------      --------------  -----   \n 0   OBJECTID    251 non-null    int64   \n 1   featurecla  251 non-null    str     \n 2   LEVEL       251 non-null    int32   \n 3   TYPE        251 non-null    str     \n 4   POP_EST     251 non-null    int64   \n 5   POP_RANK    251 non-null    int32   \n 6   GDP_MD_EST  251 non-null    float64 \n 7   POP_YEAR    251 non-null    int32   \n 8   LASTCENSUS  251 non-null    int32   \n 9   GDP_YEAR    251 non-null    int32   \n 10  ECONOMY     251 non-null    str     \n 11  INCOME_GRP  251 non-null    str     \n 12  ISO_A2      251 non-null    str     \n 13  ISO_A3      251 non-null    str     \n 14  ISO_N3      251 non-null    str     \n 15  UN_A3       251 non-null    str     \n 16  WB_A2       245 non-null    str     \n 17  WB_A3       251 non-null    str     \n 18  CONTINENT   251 non-null    str     \n 19  REGION_UN   251 non-null    str     \n 20  SUBREGION   251 non-null    str     \n 21  REGION_WB   251 non-null    str     \n 22  NAME_EN     251 non-null    str     \n 23  WB_REGION   251 non-null    str     \n 24  Shape_Leng  251 non-null    float64 \n 25  Shape_Area  251 non-null    float64 \n 26  geometry    251 non-null    geometry\ndtypes: float64(3), geometry(1), int32(5), int64(2), str(16)\nmemory usage: 48.2 KB\n\nAmount of non-empty values in this geodataframe:\n\n\nNon-empty values (%):\nOBJECTID: 100.0%\nfeaturecla: 100.0%\nLEVEL: 100.0%\nTYPE: 100.0%\nPOP_EST: 100.0%\nPOP_RANK: 100.0%\nGDP_MD_EST: 100.0%\nPOP_YEAR: 100.0%\nLASTCENSUS: 100.0%\nGDP_YEAR: 100.0%\nECONOMY: 100.0%\nINCOME_GRP: 100.0%\nISO_A2: 100.0%\nISO_A3: 100.0%\nISO_N3: 100.0%\nUN_A3: 100.0%\nWB_A2: 97.61%\nWB_A3: 100.0%\nCONTINENT: 100.0%\nREGION_UN: 100.0%\nSUBREGION: 100.0%\nREGION_WB: 100.0%\nNAME_EN: 100.0%\nWB_REGION: 100.0%\nShape_Leng: 100.0%\nShape_Area: 100.0%\ngeometry: 100.0%\n"
+    },
+    {
+      "stage": "load_earthquakes",
+      "seconds": 0.0701,
+      "note": "Loaded geodata and created GeoDataFrame named earthquakes.\nDescription of GeoDataFrame:\n<class 'geopandas.geodataframe.GeoDataFrame'>\nRangeIndex: 9176 entries, 0 to 9175\nData columns (total 23 columns):\n #   Column      Non-Null Count  Dtype   \n---  ------      --------------  -----   \n 0   time        9176 non-null   str     \n 1   latitude    9176 non-null   float64 \n 2   longitude   9176 non-null   float64 \n 3   depth       9176 non-null   float64 \n 4   mag         9176 non-null   float64 \n 5   magType     9176 non-null   str     \n 6   nst         7603 non-null   float64 \n 7   gap         7603 non-null   float64 \n 8   dmin        7602 non-null   float64 \n 9   rms         9176 non-null   float64 \n 10  net         9176 non-null   str     \n 11  id          9176 non-null   str     \n 12  updated     9176 non-null   str     \n 13  place       9176 non-null   str     \n 14  type        9176 non-null   str     \n 15  horizontal  7052 non-null   float64 \n 16  depthError  9176 non-null   float64 \n 17  magError    7589 non-null   float64 \n 18  magNst      7602 non-null   float64 \n 19  status      9176 non-null   str     \n 20  locationSo  9176 non-null   str     \n 21  magSource   9176 non-null   str     \n 22  geometry    9176 non-null   geometry\ndtypes: float64(12), geometry(1), str(10)\nmemory usage: 1.6 MB\n\nAmount of non-empty values in this geodataframe:\n\n\nNon-empty values (%):\ntime: 100.0%\nlatitude: 100.0%\nlongitude: 100.0%\ndepth: 100.0%\nmag: 100.0%\nmagType: 100.0%\nnst: 82.86%\ngap: 82.86%\ndmin: 82.85%\nrms: 100.0%\nnet: 100.0%\nid: 100.0%\nupdated: 100.0%\nplace: 100.0%\ntype: 100.0%\nhorizontal: 76.85%\ndepthError: 100.0%\nmagError: 82.7%\nmagNst: 82.85%\nstatus: 100.0%\nlocationSo: 100.0%\nmagSource: 100.0%\ngeometry: 100.0%\n"
+    },
+    {
+      "stage": "select_only",
+      "seconds": 0.0172,
+      "note": {
+        "rows_selected": 45,
+        "message": "Selected 45 features that match ANY of these predicates: contains\nResults stored in 'hit'"
+      }
+    },
+    {
+      "stage": "plot_fixed_selection",
+      "seconds": 0.2038,
+      "note": {
+        "png_bytes": 182403,
+        "plotted_rows": 45
+      }
+    },
+    {
+      "stage": "tool_end_to_end_with_plot",
+      "seconds": 0.1737,
+      "note": {
+        "message": "Selected 45 features that match ANY of these predicates: contains\nResults stored in 'hit2'",
+        "rows_selected": 45
+      }
+    }
+  ]
+}

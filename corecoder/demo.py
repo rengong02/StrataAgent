@@ -34,7 +34,16 @@ class ScriptedLLM:
         self._turns = list(script)
         self.model = model
 
-    def chat(self, messages, tools=None, on_token=None, on_reasoning=None) -> LLMResponse:
+    @property
+    def estimated_cost(self) -> float | None:
+        """No price list for a scripted model; the cost budget is skipped.
+
+        A property, matching `LLM.estimated_cost` -- the agent reads it without
+        parentheses, and a fake that disagreed would hide that from the tests.
+        """
+        return None
+
+    def chat(self, messages, tools=None, on_token=None, on_reasoning=None, timeout=None) -> LLMResponse:
         if not self._turns:
             raise RuntimeError("ScriptedLLM ran out of turns")
         resp = self._turns.pop(0)

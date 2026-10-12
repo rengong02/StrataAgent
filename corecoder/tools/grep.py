@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from typing import ClassVar
 
-from .base import Tool
+from .base import Tool, resolve_in_workspace
 
 # skip these dirs to avoid noise
 _SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", ".tox", "dist", "build"}
@@ -41,7 +41,7 @@ class GrepTool(Tool):
         except re.error as e:
             return f"Invalid regex: {e}"
 
-        base = Path(path).expanduser().resolve()
+        base = resolve_in_workspace(path)
         if not base.exists():
             return f"Error: {path} not found"
 

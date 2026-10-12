@@ -15,6 +15,7 @@ from . import __version__
 from .agent import Agent
 from .config import Config
 from .hooks import load_hooks
+from .limits import LimitExceeded
 from .llm import LLM, LiteLLM
 from .mcp import load_mcp_tools
 from .permissions import Permission
@@ -156,6 +157,10 @@ def _run_once(agent: Agent, prompt: str):
     except KeyboardInterrupt:
         console.print("\n[yellow]Interrupted.[/yellow]")
         sys.exit(130)
+    except LimitExceeded as e:
+        # not a crash: the turn hit a configured budget and stopped
+        console.print(f"\n[yellow]Stopped: {e}[/yellow]")
+        sys.exit(2)
     except Exception as e:  # noqa: BLE001
         # one-shot mode: print whatever went wrong and exit non-zero
         console.print(f"\n[red]Error: {e}[/red]")
@@ -324,6 +329,9 @@ def _repl(agent: Agent, config: Config):
                 console.print(Markdown(response))
         except KeyboardInterrupt:
             console.print("\n[yellow]Interrupted.[/yellow]")
+        except LimitExceeded as e:
+            # a budget stop is expected, not a fault; say so plainly
+            console.print(f"\n[yellow]Stopped: {e}[/yellow]")
         except Exception as e:  # noqa: BLE001
             # keep the REPL alive no matter what chat() throws
             console.print(f"\n[red]Error: {e}[/red]")

@@ -1,0 +1,18 @@
+diff --git a/geobenchx/tools.py b/geobenchx/tools.py
+index d407c6c..5150568 100644
+--- a/geobenchx/tools.py
++++ b/geobenchx/tools.py
+@@ -1058,7 +1058,12 @@ def make_choropleth_map(
+         cmap=random.choice(COLORMAPS[colormap]),
+         legend=True,
+         legend_kwds={
+-            'fmt': '{:.1f}',
++            # No 'fmt' here. geopandas forwards legend_kwds into
++            # matplotlib.colorbar.Colorbar, whose signature takes `format`, not
++            # `fmt` -- on matplotlib 3.11.2 that is a TypeError, and it made
++            # every choropleth call fail. Dropping it changes nothing: the
++            # colorbar's formatter is set three lines below, and that is the
++            # call which handles the >1e6 scaling.
+             'label': legend_label,
+             'orientation': "horizontal",
+             'shrink': 0.6

@@ -1,0 +1,309 @@
+{
+  "arms": {
+    "off": {
+      "n": 7,
+      "steps": [
+        9,
+        9,
+        18,
+        18,
+        11,
+        32,
+        32
+      ],
+      "tokens": [
+        116433,
+        526304,
+        573125,
+        793792,
+        688635,
+        1043740,
+        563363
+      ],
+      "failed_calls": 21,
+      "failed_calls_by_tool": {
+        "get_unique_values": 21
+      },
+      "tool_error_events": 21,
+      "deadline_overruns": 0
+    },
+    "on": {
+      "n": 7,
+      "steps": [
+        15,
+        19,
+        28,
+        10,
+        18,
+        7,
+        16
+      ],
+      "tokens": [
+        951377,
+        823307,
+        782825,
+        677200,
+        198176,
+        69296,
+        659252
+      ],
+      "failed_calls": 7,
+      "failed_calls_by_tool": {
+        "get_unique_values": 6,
+        "load_data": 1
+      },
+      "tool_error_events": 7,
+      "deadline_overruns": 0
+    }
+  },
+  "tests": {
+    "tokens": {
+      "mean_diff": 20565.57142857148,
+      "p": 0.9067599067599068
+    },
+    "steps": {
+      "mean_diff": 2.2857142857142847,
+      "p": 0.6573426573426573
+    },
+    "failed calls": {
+      "mean_diff": 2,
+      "p": 0.4428904428904429
+    }
+  },
+  "runs": [
+    {
+      "artifact": "abl_off_1.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 9,
+      "tokens": 116433,
+      "wall_seconds": 51.6,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_off_2.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 9,
+      "tokens": 526304,
+      "wall_seconds": 141.6,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_off_3.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 18,
+      "tokens": 573125,
+      "wall_seconds": 106.1,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_off_4.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 18,
+      "tokens": 793792,
+      "wall_seconds": 72.9,
+      "tool_errors": 6,
+      "failed_calls_by_tool": {
+        "get_unique_values": 6
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"ADMIN\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"SOVEREIGNT\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"name\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"country\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"COUNTRY\", \"dataframe_name\": \"countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_off_5.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 11,
+      "tokens": 688635,
+      "wall_seconds": 89.6,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_off_6.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 32,
+      "tokens": 1043740,
+      "wall_seconds": 153.4,
+      "tool_errors": 2,
+      "failed_calls_by_tool": {
+        "get_unique_values": 2
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"name\", \"dataframe_name\": \"countries_with_eq\"}": 1,
+        "get_unique_values:{\"column\": \"name\", \"dataframe_name\": \"countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_off_7.jsonl",
+      "arm": false,
+      "stop_reason": "completed",
+      "steps": 32,
+      "tokens": 563363,
+      "wall_seconds": 121.1,
+      "tool_errors": 13,
+      "failed_calls_by_tool": {
+        "get_unique_values": 13
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"name\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"ADMIN\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"admin\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"Country\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"SOVEREIGNT\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"sovereignt\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"iso_a3\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"ADM0_A3\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"continent\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"NAME_LONG\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"name_en\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"GEOUNIT\", \"dataframe_name\": \"countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_1.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 15,
+      "tokens": 951377,
+      "wall_seconds": 97.7,
+      "tool_errors": 2,
+      "failed_calls_by_tool": {
+        "get_unique_values": 2
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"quake_countries\"}": 1,
+        "get_unique_values:{\"column\": \"__probe__\", \"dataframe_name\": \"gdp\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_2.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 19,
+      "tokens": 823307,
+      "wall_seconds": 146.8,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_3.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 28,
+      "tokens": 782825,
+      "wall_seconds": 199.3,
+      "tool_errors": 2,
+      "failed_calls_by_tool": {
+        "get_unique_values": 2
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"countries_with_earthquakes\"}": 1,
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_4.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 10,
+      "tokens": 677200,
+      "wall_seconds": 66.6,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "get_unique_values": 1
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_5.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 18,
+      "tokens": 198176,
+      "wall_seconds": 94.6,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "load_data": 1
+      },
+      "repeat_failures": {
+        "load_data:{\"dataset\": \"Earthquakes occurences and magnitude March 15- February 14 2025\", \"output_dataframe_name\": \"earthquakes\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_6.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 7,
+      "tokens": 69296,
+      "wall_seconds": 27.2,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    },
+    {
+      "artifact": "abl_on_7.jsonl",
+      "arm": true,
+      "stop_reason": "completed",
+      "steps": 16,
+      "tokens": 659252,
+      "wall_seconds": 125.4,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "get_unique_values": 1
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"country\", \"dataframe_name\": \"eq_countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": []
+    }
+  ]
+}

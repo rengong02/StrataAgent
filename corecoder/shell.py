@@ -11,6 +11,8 @@ import shutil
 import subprocess
 from functools import lru_cache
 
+from .process import reap, spawn_in_own_group, terminate_process_group
+
 # Drive-letter span: `C:\Users\...` up to a shell metacharacter. Escapes like
 # `\n` never follow a drive letter, so they pass through untouched.
 _DRIVE_PATH_RE = re.compile(r"([A-Za-z]):((?:\\[^\s;&|<>()'\"]+)+)")
@@ -54,8 +56,41 @@ def run_shell(command: str, check: bool = False, **kwargs) -> subprocess.Complet
 
     The list form bypasses cmd.exe entirely; without Git Bash we fall back
     to the platform default (cmd.exe on Windows, /bin/sh elsewhere).
+
+    With a `timeout`, the command runs in its own session so the timeout can
+    signal the whole process group rather than just the shell.
     """
     bash = _git_bash()
     if bash is not None:
-        return subprocess.run([bash, "-c", _posixify_drive_paths(command)], shell=False, check=check, **kwargs)
-    return subprocess.run(command, shell=True, check=check, **kwargs)
+        argv: str | list[str] = [bash, "-c", _posixify_drive_paths(command)]
+        use_shell = False
+    else:
+        argv, use_shell = command, True
+
+    timeout = kwargs.pop("timeout", None)
+    if timeout is None:
+        return subprocess.run(argv, shell=use_shell, check=check, **kwargs)
+
+    # `capture_output` and `input` are run() conveniences that Popen does not
+    # take; expand them here so callers can pass the same kwargs either way.
+    if kwargs.pop("capture_output", False):
+        kwargs.setdefault("stdout", subprocess.PIPE)
+        kwargs.setdefault("stderr", subprocess.PIPE)
+    stdin_data = kwargs.pop("input", None)
+    if stdin_data is not None:
+        kwargs.setdefault("stdin", subprocess.PIPE)
+
+    proc = spawn_in_own_group(argv, shell=use_shell, **kwargs)
+    try:
+        stdout, stderr = proc.communicate(input=stdin_data, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        # The shell's own children outlive a plain `run(timeout=…)`, so stop the
+        # group the shell leads rather than just the shell.
+        terminate_process_group(proc)
+        reap(proc)  # no zombie left behind
+        raise
+
+    retcode = proc.poll()
+    if check and retcode:
+        raise subprocess.CalledProcessError(retcode, argv, output=stdout, stderr=stderr)
+    return subprocess.CompletedProcess(argv, retcode, stdout, stderr)

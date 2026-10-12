@@ -1,0 +1,656 @@
+{
+  "schema_version": 2,
+  "analysis": {
+    "method": "paired_sign_flip",
+    "alternative": "two_sided",
+    "population": "completed_pairs",
+    "inference_unit": "task_mean"
+  },
+  "arms": {
+    "off": {
+      "n": 9,
+      "steps": [
+        4,
+        4,
+        4,
+        17,
+        18,
+        11,
+        8,
+        26,
+        13
+      ],
+      "tokens": [
+        40538,
+        40326,
+        41152,
+        212308,
+        201355,
+        112648,
+        51614,
+        447149,
+        145936
+      ],
+      "failed_calls": 11,
+      "failed_calls_by_tool": {
+        "get_unique_values": 11
+      },
+      "tool_error_events": 11,
+      "deadline_overruns": 0,
+      "stop_reasons": {
+        "completed": 9
+      }
+    },
+    "on": {
+      "n": 9,
+      "steps": [
+        6,
+        8,
+        6,
+        29,
+        9,
+        19,
+        8,
+        10,
+        20
+      ],
+      "tokens": [
+        53565,
+        65918,
+        54970,
+        286888,
+        76099,
+        165012,
+        54106,
+        75350,
+        238397
+      ],
+      "failed_calls": 4,
+      "failed_calls_by_tool": {
+        "calculate_column_statistics": 4
+      },
+      "tool_error_events": 4,
+      "deadline_overruns": 1,
+      "stop_reasons": {
+        "completed": 8,
+        "truncated:deadline": 1
+      }
+    }
+  },
+  "tests": {
+    "tokens": {
+      "mean_diff": -18634.75,
+      "p": 0.4453125,
+      "left_total": 845877,
+      "right_total": 994955,
+      "right_lower": 1,
+      "equal": 0,
+      "right_higher": 7
+    },
+    "steps": {
+      "mean_diff": -3.25,
+      "p": 0.203125,
+      "left_total": 79,
+      "right_total": 105,
+      "right_lower": 1,
+      "equal": 1,
+      "right_higher": 6
+    },
+    "failed calls": {
+      "mean_diff": -0.5,
+      "p": 0.125,
+      "left_total": 0,
+      "right_total": 4,
+      "right_lower": 0,
+      "equal": 4,
+      "right_higher": 4
+    }
+  },
+  "paired": {
+    "arms": [
+      "off",
+      "on"
+    ],
+    "n": 8,
+    "n_tasks": 8,
+    "tasks": [
+      "TASK_250309_135125_476053",
+      "TASK_250309_135125_476358",
+      "TASK_250309_135125_526765",
+      "TASK_250309_135125_530802",
+      "TASK_250309_135125_596430",
+      "TASK_250309_135125_702855",
+      "TASK_250309_135125_901809",
+      "TASK_250309_135125_932053"
+    ],
+    "pairs": [
+      "TASK_250309_135125_476053#run_1",
+      "TASK_250309_135125_476358#run_1",
+      "TASK_250309_135125_526765#run_1",
+      "TASK_250309_135125_530802#run_1",
+      "TASK_250309_135125_596430#run_1",
+      "TASK_250309_135125_702855#run_1",
+      "TASK_250309_135125_901809#run_1",
+      "TASK_250309_135125_932053#run_1"
+    ],
+    "excluded": [
+      "TASK_250309_135125_918547#run_1"
+    ],
+    "exclusions": [
+      {
+        "pair": "TASK_250309_135125_918547#run_1",
+        "reason": "not_completed",
+        "stop_reasons": {
+          "off": "completed",
+          "on": "truncated:deadline"
+        }
+      }
+    ],
+    "totals": {
+      "off": {
+        "n": 8,
+        "steps": 79,
+        "tokens": 845877,
+        "failed_calls": 0
+      },
+      "on": {
+        "n": 8,
+        "steps": 105,
+        "tokens": 994955,
+        "failed_calls": 4
+      }
+    },
+    "tests": {
+      "tokens": {
+        "mean_diff": -18634.75,
+        "p": 0.4453125,
+        "left_total": 845877,
+        "right_total": 994955,
+        "right_lower": 1,
+        "equal": 0,
+        "right_higher": 7
+      },
+      "steps": {
+        "mean_diff": -3.25,
+        "p": 0.203125,
+        "left_total": 79,
+        "right_total": 105,
+        "right_lower": 1,
+        "equal": 1,
+        "right_higher": 6
+      },
+      "failed calls": {
+        "mean_diff": -0.5,
+        "p": 0.125,
+        "left_total": 0,
+        "right_total": 4,
+        "right_lower": 0,
+        "equal": 4,
+        "right_higher": 4
+      }
+    },
+    "failed_calls_by_tool": {
+      "calculate_column_statistics": {
+        "mean_diff": -0.5,
+        "p": 0.125,
+        "left_total": 0,
+        "right_total": 4,
+        "right_lower": 0,
+        "equal": 4,
+        "right_higher": 4
+      }
+    }
+  },
+  "runs": [
+    {
+      "task_id": "TASK_250309_135125_702855",
+      "task": "702855",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 4,
+      "tokens": 40538,
+      "wall_seconds": 13.9,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_476358",
+      "task": "476358",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 4,
+      "tokens": 40326,
+      "wall_seconds": 12.9,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_530802",
+      "task": "530802",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 4,
+      "tokens": 41152,
+      "wall_seconds": 13.4,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_526765",
+      "task": "526765",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 17,
+      "tokens": 212308,
+      "wall_seconds": 86.5,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_901809",
+      "task": "901809",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 18,
+      "tokens": 201355,
+      "wall_seconds": 56.5,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_596430",
+      "task": "596430",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 11,
+      "tokens": 112648,
+      "wall_seconds": 32.8,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_476053",
+      "task": "476053",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 8,
+      "tokens": 51614,
+      "wall_seconds": 18.4,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_918547",
+      "task": "918547",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 26,
+      "tokens": 447149,
+      "wall_seconds": 102.4,
+      "tool_errors": 11,
+      "failed_calls_by_tool": {
+        "get_unique_values": 11
+      },
+      "repeat_failures": {
+        "get_unique_values:{\"column\": \"NAME\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"COUNTRY\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"Country\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"ADMIN\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"SOVEREIGNT\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"name\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"Name\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"CNTRY_NAME\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"sovereignt\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"country_name\", \"dataframe_name\": \"countries\"}": 1,
+        "get_unique_values:{\"column\": \"Country_Name\", \"dataframe_name\": \"countries\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_932053",
+      "task": "932053",
+      "artifact": "run_1.jsonl",
+      "arm": "control",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 13,
+      "tokens": 145936,
+      "wall_seconds": 47.6,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {}
+    },
+    {
+      "task_id": "TASK_250309_135125_702855",
+      "task": "702855",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 6,
+      "tokens": 53565,
+      "wall_seconds": 25.9,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "calculate_column_statistics": 1
+      },
+      "repeat_failures": {
+        "calculate_column_statistics:{\"column_name\": \"2024\", \"dataframe_name\": \"migration_map_data\", \"output_variable_name\": \"stats_2024\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 6,
+        "replaced": 2,
+        "kept": 4,
+        "bytes_before": 13201,
+        "bytes_after": 11058,
+        "bytes_saved": 2143,
+        "artifacts": 10,
+        "stored": 8,
+        "written_bytes": 270725,
+        "capped": true,
+        "too_large": 2
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_476358",
+      "task": "476358",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 8,
+      "tokens": 65918,
+      "wall_seconds": 26.6,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "calculate_column_statistics": 1
+      },
+      "repeat_failures": {
+        "calculate_column_statistics:{\"column_name\": \"2024\", \"dataframe_name\": \"labor_force\", \"output_variable_name\": \"stats_2024\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 8,
+        "replaced": 4,
+        "kept": 4,
+        "bytes_before": 20910,
+        "bytes_after": 15188,
+        "bytes_saved": 5722,
+        "artifacts": 12,
+        "stored": 10,
+        "written_bytes": 268087,
+        "capped": true,
+        "too_large": 2
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_530802",
+      "task": "530802",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 6,
+      "tokens": 54970,
+      "wall_seconds": 29.3,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 6,
+        "replaced": 2,
+        "kept": 4,
+        "bytes_before": 13229,
+        "bytes_after": 11018,
+        "bytes_saved": 2211,
+        "artifacts": 10,
+        "stored": 8,
+        "written_bytes": 320244,
+        "capped": true,
+        "too_large": 2
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_526765",
+      "task": "526765",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 29,
+      "tokens": 286888,
+      "wall_seconds": 110.0,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 29,
+        "replaced": 4,
+        "kept": 25,
+        "bytes_before": 27536,
+        "bytes_after": 21940,
+        "bytes_saved": 5596,
+        "artifacts": 54,
+        "stored": 52,
+        "written_bytes": 859808,
+        "capped": true,
+        "too_large": 2
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_901809",
+      "task": "901809",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 9,
+      "tokens": 76099,
+      "wall_seconds": 35.9,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 9,
+        "replaced": 2,
+        "kept": 7,
+        "bytes_before": 14535,
+        "bytes_after": 12482,
+        "bytes_saved": 2053,
+        "artifacts": 16,
+        "stored": 13,
+        "written_bytes": 1924993,
+        "capped": true,
+        "too_large": 3
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_596430",
+      "task": "596430",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 19,
+      "tokens": 165012,
+      "wall_seconds": 53.7,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "calculate_column_statistics": 1
+      },
+      "repeat_failures": {
+        "calculate_column_statistics:{\"column_name\": \"2024\", \"dataframe_name\": \"amazon_forest_pct\", \"output_variable_name\": \"stats_2024\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 19,
+        "replaced": 4,
+        "kept": 15,
+        "bytes_before": 24970,
+        "bytes_after": 20123,
+        "bytes_saved": 4847,
+        "artifacts": 33,
+        "stored": 31,
+        "written_bytes": 1777118,
+        "capped": true,
+        "too_large": 2
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_476053",
+      "task": "476053",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 8,
+      "tokens": 54106,
+      "wall_seconds": 39.2,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 8,
+        "replaced": 1,
+        "kept": 7,
+        "bytes_before": 27930,
+        "bytes_after": 8094,
+        "bytes_saved": 19836,
+        "artifacts": 12,
+        "stored": 11,
+        "written_bytes": 1847089,
+        "capped": true,
+        "too_large": 1
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_918547",
+      "task": "918547",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "truncated:deadline",
+      "steps": 10,
+      "tokens": 75350,
+      "wall_seconds": 1036.8,
+      "tool_errors": 0,
+      "failed_calls_by_tool": {},
+      "repeat_failures": {},
+      "unexposed_calls": 0,
+      "deadline_overruns": [
+        [
+          "select_features_by_spatial_relationship",
+          436.818,
+          "cooperative"
+        ]
+      ],
+      "evidence_stats": {
+        "calls": 10,
+        "replaced": 2,
+        "kept": 8,
+        "bytes_before": 257506,
+        "bytes_after": 11659,
+        "bytes_saved": 245847,
+        "artifacts": 19,
+        "stored": 14,
+        "written_bytes": 676532,
+        "capped": true,
+        "too_large": 5
+      }
+    },
+    {
+      "task_id": "TASK_250309_135125_932053",
+      "task": "932053",
+      "artifact": "run_1.jsonl",
+      "arm": "evidence",
+      "repeat": 1,
+      "stop_reason": "completed",
+      "steps": 20,
+      "tokens": 238397,
+      "wall_seconds": 103.7,
+      "tool_errors": 1,
+      "failed_calls_by_tool": {
+        "calculate_column_statistics": 1
+      },
+      "repeat_failures": {
+        "calculate_column_statistics:{\"column_name\": \"2024\", \"dataframe_name\": \"forest_sqkm\", \"include_quantiles\": false, \"output_variable_name\": \"stats_2024\"}": 1
+      },
+      "unexposed_calls": 0,
+      "deadline_overruns": [],
+      "evidence_stats": {
+        "calls": 20,
+        "replaced": 3,
+        "kept": 17,
+        "bytes_before": 21011,
+        "bytes_after": 17885,
+        "bytes_saved": 3126,
+        "artifacts": 33,
+        "stored": 32,
+        "written_bytes": 1989071,
+        "capped": true,
+        "too_large": 1
+      }
+    }
+  ]
+}

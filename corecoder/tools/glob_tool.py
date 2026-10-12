@@ -1,9 +1,8 @@
 """File pattern matching."""
 
-from pathlib import Path
 from typing import ClassVar
 
-from .base import Tool
+from .base import Tool, resolve_in_workspace
 
 
 class GlobTool(Tool):
@@ -29,7 +28,7 @@ class GlobTool(Tool):
 
     def execute(self, pattern: str, path: str = ".") -> str:
         try:
-            base = Path(path).expanduser().resolve()
+            base = resolve_in_workspace(path)
             if not base.exists():
                 return f"Error: {path} not found"
             if not base.is_dir():
