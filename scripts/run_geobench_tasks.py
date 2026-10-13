@@ -11,7 +11,7 @@ Two things this deliberately does *not* do:
   solve 50 of the 202 tasks, and folding those zeros into a model score would
   understate the model rather than describe it.
 
-`eligible` follows Codex's definition: a task counts when **at least one**
+An eligible task has **at least one**
 reference solution uses only whitelisted tools, since one reachable plan is
 enough for the model to have a chance.
 
@@ -47,7 +47,7 @@ def classify(task: dict, whitelist: set[str]) -> str:
 
     A single number over a mixed pool says nothing: answering 3 control questions
     and rejecting 86 unsolvable ones is not the same skill as planning a
-    multi-step spatial query. Codex split the 202 this way, and the report has to
+    multi-step spatial query. The classification of the 202 tasks must
     keep them apart.
     """
     solutions = task.get("reference_solutions") or []

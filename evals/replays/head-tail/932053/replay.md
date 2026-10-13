@@ -1,7 +1,7 @@
 # 轨迹重放：TASK_250309_135125_932053
 
 > **这是保存轨迹的离线重放，不是重新运行 LLM Agent。** 计划（工具调用参数）来自已有产物，
-> 本轮只把每个调用在当前工具版本上重新执行一遍。产物与逐步记录为本次重放生成。
+> 工具调用按当前版本重新执行，以下记录包含对应观测与产物。
 
 - 任务原文：How many African power stations are located in countries with significant forest loss?
 - 计划来源：`evals/ablation/p2c_headtail_vs_raw/head_tail/run_1.jsonl`（arm `head_tail`）
@@ -55,7 +55,7 @@ Côte d'Ivoire 19、São Tomé and Príncipe 11、Western Sahara 10。
 结果**仍然是 793**（Egypt 与 Congo (Brazzaville) 本就不满足阈值），
 **即答案对别名处理方式不敏感**。
 
-**结论：793 个源电站行**（693 + 100），与 Codex 独立审计的 793 一致。
+**结果：793 个源电站行**（693 + 100），与独立数据校验一致。
 
 口径为 `Forest area (% of land area)`，`1990 − 2021 > 5` **个百分点** ——
 检查表 C 原文即允许「覆盖率差 ≥3.58 个百分点或更高值」，属**预先许可**范围，不是事后放宽。

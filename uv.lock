@@ -426,7 +426,7 @@ wheels = [
 ]
 
 [[package]]
-name = "corecoder"
+name = "strata-agent"
 version = "0.7.0"
 source = { editable = "." }
 dependencies = [

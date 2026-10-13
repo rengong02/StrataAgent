@@ -1,0 +1,11 @@
+numpy>=1.26
+pandas>=2.2
+geopandas>=1.0
+matplotlib>=3.9
+rasterio>=1.4
+contextily>=1.6
+plotly>=5.24
+langchain-core>=0.3
+langgraph>=0.2
+scipy>=1.13
+scikit-learn>=1.5

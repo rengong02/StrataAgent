@@ -215,7 +215,7 @@ def test_calibration_confusion_matrix_is_readable():
     assert report["confusion"]["1->2"] == 1  # human said 1, judge said 2
 
 
-# --- the three fixes Codex's round 4 found ------------------------------------
+# --- judge response and logging regressions ----------------------------------
 
 
 def test_env_file_alone_is_enough(tmp_path, monkeypatch):
@@ -434,7 +434,7 @@ def test_the_default_token_budget_leaves_room_for_thinking():
 def test_an_empty_reply_is_logged_before_it_raises(tmp_path):
     """The empty-content path must reach the log too.
 
-    Regression for the gap Codex found: the diagnostics used to be raised from
+    Diagnostics raised from
     inside the completer, so this class of failure never met `_log()`.
     """
     from geobenchx.dataclasses import Task
